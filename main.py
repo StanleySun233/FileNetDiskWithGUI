@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 import minio
 import fun
 import cv2
+import threading
 from tkinter.filedialog import (askopenfilename,
                                 askopenfilenames,
                                 askdirectory,
@@ -12,10 +13,10 @@ from tkinter.filedialog import (askopenfilename,
 
 global maxLen, fileL, nowPage, picTable, bucket
 
-ip = '47.100.93.63'
-port = '9090'
-account = "admin"
-password = "admin123456"
+ip = '127.0.0.1'
+port = '9000'
+account = "minioadmin"
+password = "minioadmin"
 img_size = (100, 100)
 
 client = minio.Minio(ip + ':' + port, access_key=account, secret_key=password, secure=False)
@@ -35,9 +36,12 @@ def chooseDocument(event):
     maxLen = len(fileL) // 9
     nowPage = 1
     picTable = []
+
+    cnt = 1
     for i in fileL:
         print(i)
-        picTable.append(fun.fileDownload_PIC(client, bucket, i))
+        threading.Thread(picTable.append(fun.fileDownload_PIC(client, bucket, i)))
+        cnt +=1
     showPage.configure(text='第{}页，共{}页'.format(nowPage, maxLen + 1))
     clearPage()
     changeBeginPic()
