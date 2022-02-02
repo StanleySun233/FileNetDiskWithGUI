@@ -1,5 +1,4 @@
 import tkinter as tk
-
 import numpy as np
 import requests
 from PIL import Image, ImageTk
@@ -18,12 +17,6 @@ port = '9090'
 account = "admin"
 password = "admin123456"
 img_size = (100, 100)
-
-# pic1 = cv2.imread('empty.png')
-# pic2 = cv2.resize(pic1, img_size)
-# pic2 = cv2.cvtColor(pic2, cv2.COLOR_BGR2RGB)
-# pic3 = Image.fromarray(pic2)
-# empty = ImageTk.PhotoImage(image=pic3)
 
 client = minio.Minio(ip + ':' + port, access_key=account, secret_key=password, secure=False)
 filePack = fun.getBucketList(client)
