@@ -11,6 +11,7 @@ https://dl.minio.io/server/minio/release/windows-amd64/minio.exe
 ### 2. 启动服务
 
 保存下载的地方，例如 `E:\ship\MinIO` 。
+
 在下载的文件夹按下 `Shift` + `右键` ，打开 `Windows Power Shell` ，输入： 
 
 ```

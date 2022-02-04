@@ -1,10 +1,8 @@
 import tkinter as tk
-import numpy as np
 import requests
 from PIL import Image, ImageTk
 import minio
 import fun
-import cv2
 import threading
 from tkinter.filedialog import (askopenfilename,
                                 askopenfilenames,
@@ -13,10 +11,10 @@ from tkinter.filedialog import (askopenfilename,
 
 global maxLen, fileL, nowPage, picTable, bucket
 
-ip = '127.0.0.1'
-port = '9000'
-account = "minioadmin"
-password = "minioadmin"
+ip = '47.100.93.63'
+port = '9090'
+account = "admin"
+password = "admin123456"
 img_size = (100, 100)
 
 client = minio.Minio(ip + ':' + port, access_key=account, secret_key=password, secure=False)
