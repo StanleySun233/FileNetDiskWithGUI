@@ -1,6 +1,5 @@
 import os
 import time
-import tkinter as tk
 from PIL import Image, ImageTk
 import minio
 import cv2
@@ -31,7 +30,7 @@ def fileUploadURL(client: minio.Minio, bucket: str, path: str, name: str = None)
     try:
         if not name:
             name = path[len(path) - (path[::-1]).index('/'):]
-            name = str(int(time.time()*1000)) + name[name.index("."):]
+            name = str(int(time.time() * 1000)) + name[name.index("."):]
             print(name)
         file = open(path, 'rb')
         url = client.presigned_put_object(bucket, name)
@@ -99,3 +98,7 @@ def pic2tkpic(img, img_size):
     img___ = Image.fromarray(img__)
     img____ = ImageTk.PhotoImage(image=img___)
     return img____
+
+
+def deleteFile(cilent: minio.Minio, bucketName, fileName):
+    cilent.remove_object(bucketName, fileName)

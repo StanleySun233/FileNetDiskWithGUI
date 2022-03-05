@@ -39,7 +39,7 @@ def chooseDocument(event):
     for i in fileL:
         print(i)
         threading.Thread(picTable.append(fun.fileDownload_PIC(client, bucket, i)))
-        cnt +=1
+        cnt += 1
     showPage.configure(text='第{}页，共{}页'.format(nowPage, maxLen + 1))
     clearPage()
     changeBeginPic()
@@ -101,6 +101,12 @@ def uploadPic():
         url = fun.fileUploadURL(client, bucket, path=i)
 
 
+def deleteFile(*args):
+    fileName = Entry1.get()
+    print(bucket, fileName)
+    fun.deleteFile(client,bucket,fileName)
+
+
 FileList = tk.Listbox(mainWindow)
 for i in filePack[::-1]:
     FileList.insert(0, i)
@@ -113,6 +119,15 @@ Label1.place(x=50, y=0, width=100, height=40)
 
 Label2 = tk.Label(mainWindow, text='文件', bg='lightBlue')
 Label2.place(x=320, y=0, width=100, height=40)
+
+Label3 = tk.Label(mainWindow, text='删除文件', bg='lightBlue')
+Label3.place(x=580, y=0, width=200, height=40)
+
+Entry1 = tk.Entry(mainWindow)
+Entry1.place(x=580, y=60, width=200, height=40)
+
+Butten1 = tk.Button(mainWindow, text='确认删除', command=deleteFile)
+Butten1.place(x=580, y=120, width=200, height=40)
 
 x_beg = 200
 y_beg = 100
