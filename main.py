@@ -9,7 +9,7 @@ from tkinter.filedialog import (askopenfilename,
                                 askdirectory,
                                 asksaveasfilename)
 
-global maxLen, fileL, nowPage, picTable, bucket
+global maxLen, fileL, nowPage, picTable, bucket, selectPicture
 
 ip = '47.100.93.63'
 port = '9090'
@@ -101,11 +101,27 @@ def uploadPic():
         url = fun.fileUploadURL(client, bucket, path=i)
 
 
-def deleteFile(*args):
+def deletePic(*args):
     fileName = Entry1.get()
     print(bucket, fileName)
-    fun.deleteFile(client,bucket,fileName)
+    fun.deleteFile(client, bucket, fileName)
 
+
+def findPic():
+    global selectPicture
+    fileName = Entry2.get()
+    selectPicture = fun.fileDownload_PIC(client, bucket, fileName)
+    Button3.configure(image=selectPicture)
+
+
+def downloadPicOne(*args):
+    fileName = Entry2.get()
+    path = asksaveasfilename(title='选择文件夹', initialfile=fileName)
+    url = fun.fileDownload(client, bucket, fileName)
+    url = requests.get(url)
+    data = open(path, 'wb')
+    data.writelines(url)
+    data.close()
 
 FileList = tk.Listbox(mainWindow)
 for i in filePack[::-1]:
@@ -126,8 +142,17 @@ Label3.place(x=580, y=0, width=200, height=40)
 Entry1 = tk.Entry(mainWindow)
 Entry1.place(x=580, y=60, width=200, height=40)
 
-Butten1 = tk.Button(mainWindow, text='确认删除', command=deleteFile)
-Butten1.place(x=580, y=120, width=200, height=40)
+Button1 = tk.Button(mainWindow, text='确认删除', command=deletePic)
+Button1.place(x=580, y=120, width=200, height=40)
+
+Entry2 = tk.Entry(mainWindow)
+Entry2.place(x=580, y=180, width=200, height=40)
+
+Button2 = tk.Button(mainWindow, text='查询图片', command=findPic)
+Button2.place(x=580, y=240, width=200, height=40)
+
+Button3 = tk.Button(mainWindow, text="输入图片后查询", bg='pink',command=downloadPicOne)
+Button3.place(x=630, y=300, width=100, height=100)
 
 x_beg = 200
 y_beg = 100
